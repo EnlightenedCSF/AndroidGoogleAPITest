@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlaceInfoView">
+        <attr name="place_name" format="string" />
+        <attr name="place_icon" format="reference" />
+        <attr name="place_is_open" format="boolean" />
+        <attr name="place_price_level" format="string" />
+        <attr name="place_address" format="string" />
+    </declare-styleable>
+</resources>

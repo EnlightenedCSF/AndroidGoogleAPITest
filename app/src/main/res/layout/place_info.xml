@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/place_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="24sp"
+        android:layout_marginBottom="12dp"
+        android:text="Name of the place" />
+
+    <ImageView
+        android:id="@+id/place_icon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="fitCenter"
+        android:layout_below="@id/place_name"
+        android:src="@drawable/ic_launcher"
+        android:contentDescription="@string/place_icon_attribute" />
+
+    <TextView
+        android:id="@+id/place_is_open_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/place_icon"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/place_is_open_text"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/place_is_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/place_icon"
+        android:layout_toRightOf="@id/place_is_open_label"
+        android:layout_toEndOf="@id/place_is_open_label"
+        android:text="Yes"/>
+
+    <TextView
+        android:id="@+id/place_price_level_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/place_is_open_label"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        android:textStyle="bold"
+        android:text="Класс:"
+        />
+
+    <TextView
+        android:id="@+id/place_price_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/place_is_open_label"
+        android:layout_toRightOf="@id/place_price_level_label"
+        android:layout_toEndOf="@id/place_price_level_label"
+        android:layout_marginBottom="5dp"
+        android:text="Expensive"/>
+
+    <TextView
+        android:id="@+id/place_address_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/place_price_level_label"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:textStyle="bold"
+        android:text="Адрес:"
+        />
+
+    <TextView
+        android:id="@+id/place_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_below="@id/place_price_level"
+        android:layout_toRightOf="@id/place_address_label"
+        android:layout_toEndOf="@id/place_address_label"
+        android:text="ул. Космонавтов, 1"/>
+
+
+</RelativeLayout>
