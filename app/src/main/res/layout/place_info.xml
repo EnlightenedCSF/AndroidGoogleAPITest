@@ -81,6 +81,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginEnd="5dp"
         android:textStyle="bold"
+        android:paddingBottom="20dp"
         android:text="Адрес:"
         />
 
@@ -94,5 +95,11 @@
         android:layout_toEndOf="@id/place_address_label"
         android:text="ул. Космонавтов, 1"/>
 
+    <Button
+        android:id="@+id/buttonAddToFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добавить в избранное"
+        android:layout_below="@id/place_address_label"/>
 
 </RelativeLayout>

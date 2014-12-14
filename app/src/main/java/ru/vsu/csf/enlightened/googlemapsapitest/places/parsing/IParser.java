@@ -1,4 +1,4 @@
-package ru.vsu.csf.enlightened.googlemapsapitest.places;
+package ru.vsu.csf.enlightened.googlemapsapitest.places.parsing;
 
 import org.json.JSONException;
 

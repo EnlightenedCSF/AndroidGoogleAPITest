@@ -10,20 +10,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
@@ -38,12 +33,16 @@ import javax.net.ssl.HttpsURLConnection;
 import ru.vsu.csf.enlightened.googlemapsapitest.maps.GoogleMapFragment;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.Place;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.PlaceHolder;
-import ru.vsu.csf.enlightened.googlemapsapitest.places.PlaceParser;
+import ru.vsu.csf.enlightened.googlemapsapitest.places.parsing.PlaceParser;
+import ru.vsu.csf.enlightened.googlemapsapitest.places.PlaceType;
 
 
-public class MainActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MapActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+
+    private String placeName;
+    private PlaceType placeType;
 
     private GoogleMapFragment googleMapFragment;
     private LocationClient locationClient;
@@ -52,11 +51,21 @@ public class MainActivity extends FragmentActivity implements GooglePlayServices
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_map);
         initMap();
 
         locationClient = new LocationClient(this, this, this);
         placeHolder = PlaceHolder.getInstance();
+
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        if (b != null) {
+            placeName = b.getString(SearchActivity.PLACE_NAME);
+            placeType = PlaceType.values()[b.getInt(SearchActivity.PLACE_TYPE)];
+            Toast.makeText(MapActivity.this, placeName + " " + b.getInt(SearchActivity.PLACE_TYPE) + " " + placeType.getValue(), Toast.LENGTH_SHORT).show();
+        }
+
+        //SearchPlaces();
     }
 
     //region Map stuff
@@ -87,22 +96,22 @@ public class MainActivity extends FragmentActivity implements GooglePlayServices
 
     Connection connector;
 
-    public void queryToPlaces(View view) {
+    public void SearchPlaces() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
         if (info != null && info.isConnected()){
-            System.out.print("\n Connected! \n");
+            connector = new Connection();
+            connector.execute();
         }
         else {
-            System.out.print("\n Is not connected! \n");
+            Toast.makeText(MapActivity.this, "Is not connected!", Toast.LENGTH_SHORT).show();
         }
-        connector = new Connection();
-        connector.execute();
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+        SearchPlaces();
     }
 
     @Override
@@ -174,8 +183,9 @@ public class MainActivity extends FragmentActivity implements GooglePlayServices
                 Location currentLocation = locationClient.getLastLocation();
 
                 URL url = new URL("https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
-                        "types=food&" +
-                        "radius=500&" +
+                        "types=" + placeType.getValue() + "&" +
+                        //(placeName.isEmpty() ? "" : "name=" + placeName + "&") +
+                        "radius=1000&" +
                         "language=ru&" +
                         "location=" + currentLocation.getLatitude() + "," + currentLocation.getLongitude() + "&" +
                         "sensor=false&" +

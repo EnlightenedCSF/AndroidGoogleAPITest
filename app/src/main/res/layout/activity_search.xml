@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="ru.vsu.csf.enlightened.googlemapsapitest.SearchActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <TextView
+                    android:text="Название:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/nameText"
+                    />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    android:layout_below="@id/nameText"
+                    android:id="@+id/editTextPlaceName"
+                    />
+                <TextView
+                    android:id="@+id/textComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editTextPlaceName"
+                    android:textSize="12sp"
+                    android:textColor="#ff575757"
+                    android:text="Оставьте строку пустой для поиска всех мест указанного типа"
+                    android:layout_marginBottom="20dp"/>
+
+                <TextView
+                    android:text="Тип места:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_below="@id/textComment"
+                    android:id="@+id/placeTypeText"/>
+                <RadioGroup
+                    android:id="@+id/radioGroupPlaceType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/placeTypeText"
+                    android:layout_marginBottom="24dp">
+                    <RadioButton
+                        android:id="@+id/radioCafe0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Кафе"
+                        android:textSize="16sp"/>
+                    <RadioButton
+                        android:id="@+id/radioPark1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Парк развлечений"
+                        android:textSize="16sp"/>
+                    <RadioButton
+                        android:id="@+id/radioFood2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Продуктовые магазины"
+                        android:textSize="16sp"/>
+                    <RadioButton
+                        android:id="@+id/radioMuseum3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Музей"
+                        android:textSize="16sp"/>
+                    <RadioButton
+                        android:id="@+id/radioLib4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Библиотека"
+                        android:textSize="16sp"/>
+                    </RadioGroup>
+
+                <Button
+                    android:id="@+id/searchPlacesButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Поиск"
+                    android:textSize="18sp"
+                    android:layout_below="@id/radioGroupPlaceType"/>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

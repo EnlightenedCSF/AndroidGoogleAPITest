@@ -5,12 +5,17 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.sql.SQLException;
+
 import ru.vsu.csf.enlightened.googlemapsapitest.R;
+import ru.vsu.csf.enlightened.googlemapsapitest.places.db.MyDBHelper;
 
 public class PlaceInfoView extends LinearLayout {
 
@@ -19,6 +24,7 @@ public class PlaceInfoView extends LinearLayout {
     private TextView mIsOpen;
     private TextView mAddress;
     private TextView mPriceLevel;
+    private Button mAddToFavorites;
 
     public PlaceInfoView(Context context) {
         super(context);
@@ -49,6 +55,19 @@ public class PlaceInfoView extends LinearLayout {
             mIsOpen = (TextView) findViewById(R.id.place_is_open);
             mPriceLevel = (TextView) findViewById(R.id.place_price_level);
             mAddress = (TextView) findViewById(R.id.place_address);
+            mAddToFavorites = (Button) findViewById(R.id.buttonAddToFavorites);
+            mAddToFavorites.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        MyDBHelper dbHelper = MyDBHelper.getInstance(getContext());
+                        dbHelper.getPlaceDAO().create(new Place()); //todo
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
             mName.setText(name);
             if (isOpen) {
@@ -78,7 +97,7 @@ public class PlaceInfoView extends LinearLayout {
                     mPriceLevel.setText("Элитное");
                     break;
                 case 5:
-                    mPriceLevel.setText("Неизвестно");
+                    mPriceLevel.setText("Не указано");
                     break;
             }
 
@@ -94,6 +113,7 @@ public class PlaceInfoView extends LinearLayout {
 
     public void populate(Place place) {
         mName.setText(place.getName());
+        //todo: add picasso
         mIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
         if (place.isOpen()) {
             mIsOpen.setText("Да");

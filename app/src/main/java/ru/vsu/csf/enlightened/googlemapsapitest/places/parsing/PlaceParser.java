@@ -1,4 +1,4 @@
-package ru.vsu.csf.enlightened.googlemapsapitest.places;
+package ru.vsu.csf.enlightened.googlemapsapitest.places.parsing;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -6,6 +6,8 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import ru.vsu.csf.enlightened.googlemapsapitest.places.Place;
 
 public class PlaceParser implements IParser<Place>, Serializable {
     /*
@@ -49,6 +51,7 @@ public class PlaceParser implements IParser<Place>, Serializable {
     @Override
     public ArrayList<Place> parse(String json) throws JSONException {
         final ArrayList<Place> places = new ArrayList<Place>();
+        System.out.println("\n\n\n" + json + "\n\n\n");
         JSONObject response = new JSONObject(json);
 
         JSONArray results = response.getJSONArray("results");
@@ -59,15 +62,15 @@ public class PlaceParser implements IParser<Place>, Serializable {
             places.add(new Place() {{
                 JSONObject location = placeObj.getJSONObject("geometry").getJSONObject("location");
 
-                latitude = location.getDouble("lat");
-                longitude = location.getDouble("lng");
+                setLatitude(location.getDouble("lat"));
+                setLongitude(location.getDouble("lng"));
 
-                iconUrl = placeObj.getString("icon");
-                id = placeObj.getString("id");
-                name = placeObj.getString("name");
-                isOpen = placeObj.optJSONObject("opening_hours") != null && placeObj.getJSONObject("opening_hours").getBoolean("open_now");
-                priceLevel = placeObj.optInt("price_level", 5);
-                address = placeObj.getString("vicinity");
+                setIconUrl(placeObj.getString("icon"));
+                setId(placeObj.getString("id"));
+                setName(placeObj.getString("name"));
+                setOpen(placeObj.optJSONObject("opening_hours") != null && placeObj.getJSONObject("opening_hours").getBoolean("open_now"));
+                setPriceLevel(placeObj.optInt("price_level", 5));
+                setAddress(placeObj.getString("vicinity"));
             }});
         }
 

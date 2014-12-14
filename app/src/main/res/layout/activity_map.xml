@@ -13,11 +13,11 @@
         class="ru.vsu.csf.enlightened.googlemapsapitest.maps.GoogleMapFragment"
         />
 
-    <Button
+    <!--<Button
         android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Test"
-        android:onClick="queryToPlaces"
-        />
+        android:onClick="SearchPlaces"
+        />-->
 </LinearLayout>

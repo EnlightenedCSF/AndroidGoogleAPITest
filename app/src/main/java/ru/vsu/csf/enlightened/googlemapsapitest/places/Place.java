@@ -1,20 +1,40 @@
 package ru.vsu.csf.enlightened.googlemapsapitest.places;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
+@DatabaseTable(tableName="places")
 public class Place implements Serializable {
 
-    double latitude;
-    double longitude;
+    public static final String PLACE_ID = "place_id";
+    public static final String PLACE_NAME = "place_name";
+    public static final String PLACE_LAT = "place_lat";
+    public static final String PLACE_LNG = "place_lng";
+    public static final String PLACE_ICON_URL = "place_icon_url";
+    public static final String PLACE_PRICE_LVL = "place_price_lvl";
+    public static final String PLACE_ADDRESS = "place_address";
 
+
+    @DatabaseField(columnName = PLACE_ID, generatedId = true)
     String id;
-    String iconUrl;
+    @DatabaseField(columnName = PLACE_NAME)
     String name;
 
+    @DatabaseField(columnName = PLACE_LAT)
+    double latitude;
+    @DatabaseField(columnName = PLACE_LNG)
+    double longitude;
+
+    @DatabaseField(columnName = PLACE_ICON_URL)
+    String iconUrl;
+
     boolean isOpen;
+    @DatabaseField(columnName = PLACE_PRICE_LVL)
     int priceLevel;
+    @DatabaseField(columnName = PLACE_ADDRESS)
     String address;
 
     @Override
