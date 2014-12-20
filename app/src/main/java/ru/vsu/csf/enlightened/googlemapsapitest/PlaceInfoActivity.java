@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import ru.vsu.csf.enlightened.googlemapsapitest.places.Place;
-import ru.vsu.csf.enlightened.googlemapsapitest.places.PlaceInfoView;
+import ru.vsu.csf.enlightened.googlemapsapitest.places.view.PlaceInfoView;
 
 
 public class PlaceInfoActivity extends ActionBarActivity {
@@ -28,7 +28,11 @@ public class PlaceInfoActivity extends ActionBarActivity {
                 setAddress(bundle.getString("address"));
                 setOpen(bundle.getBoolean("isOpen"));
                 setPriceLevel(bundle.getInt("priceLevel"));
+                setIconUrl(bundle.getString("iconURL"));
+
             }};
+
+            Toast.makeText(this, bundle.getString("iconURL"), Toast.LENGTH_LONG).show();
 
             placeInfo.populate(place);
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();

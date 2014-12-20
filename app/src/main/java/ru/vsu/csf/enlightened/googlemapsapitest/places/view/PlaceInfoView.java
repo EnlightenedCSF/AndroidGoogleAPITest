@@ -1,4 +1,4 @@
-package ru.vsu.csf.enlightened.googlemapsapitest.places;
+package ru.vsu.csf.enlightened.googlemapsapitest.places.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.sql.SQLException;
 
 import ru.vsu.csf.enlightened.googlemapsapitest.R;
+import ru.vsu.csf.enlightened.googlemapsapitest.places.Place;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.db.MyDBHelper;
 
 public class PlaceInfoView extends LinearLayout {
@@ -24,7 +27,8 @@ public class PlaceInfoView extends LinearLayout {
     private TextView mIsOpen;
     private TextView mAddress;
     private TextView mPriceLevel;
-    private Button mAddToFavorites;
+
+    private Place place;
 
     public PlaceInfoView(Context context) {
         super(context);
@@ -55,14 +59,15 @@ public class PlaceInfoView extends LinearLayout {
             mIsOpen = (TextView) findViewById(R.id.place_is_open);
             mPriceLevel = (TextView) findViewById(R.id.place_price_level);
             mAddress = (TextView) findViewById(R.id.place_address);
-            mAddToFavorites = (Button) findViewById(R.id.buttonAddToFavorites);
+            Button mAddToFavorites = (Button) findViewById(R.id.buttonAddToFavorites);
             mAddToFavorites.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
                         MyDBHelper dbHelper = MyDBHelper.getInstance(getContext());
-                        dbHelper.getPlaceDAO().create(new Place()); //todo
-
+                        dbHelper.getPlaceDAO().create(place);
+                        Toast.makeText(getContext(), "OK, added!", Toast.LENGTH_SHORT).show();
+                        System.out.println("OK, added");
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -112,9 +117,12 @@ public class PlaceInfoView extends LinearLayout {
     }
 
     public void populate(Place place) {
+        this.place = place;
+
         mName.setText(place.getName());
-        //todo: add picasso
-        mIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+
+        Picasso.with(getContext()).load(place.getIconUrl()).into(mIcon);
+
         if (place.isOpen()) {
             mIsOpen.setText("Да");
             mIsOpen.setTextColor(Color.GREEN);

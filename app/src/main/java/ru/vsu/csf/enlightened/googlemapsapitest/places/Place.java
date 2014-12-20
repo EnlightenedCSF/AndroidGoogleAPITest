@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class Place implements Serializable {
 
     public static final String PLACE_ID = "place_id";
+    public static final String PLACE_ID_TEXT = "place_id_text";
     public static final String PLACE_NAME = "place_name";
     public static final String PLACE_LAT = "place_lat";
     public static final String PLACE_LNG = "place_lng";
@@ -17,9 +18,10 @@ public class Place implements Serializable {
     public static final String PLACE_PRICE_LVL = "place_price_lvl";
     public static final String PLACE_ADDRESS = "place_address";
 
-
+    @DatabaseField(columnName = PLACE_ID_TEXT)
+    String textId;
     @DatabaseField(columnName = PLACE_ID, generatedId = true)
-    String id;
+    int id;
     @DatabaseField(columnName = PLACE_NAME)
     String name;
 
@@ -55,7 +57,7 @@ public class Place implements Serializable {
 
     public String getIconUrl() {
         return iconUrl;
-    } //TODO: add picasso^^
+    }
 
     public String getName() {
         return name;
@@ -86,7 +88,7 @@ public class Place implements Serializable {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.textId = id;
     }
 
     public void setIconUrl(String iconUrl) {

@@ -90,6 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:paddingBottom="20dp"
         android:layout_below="@id/place_price_level"
         android:layout_toRightOf="@id/place_address_label"
         android:layout_toEndOf="@id/place_address_label"
@@ -100,6 +101,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Добавить в избранное"
-        android:layout_below="@id/place_address_label"/>
+        android:layout_below="@id/place_address"/>
 
 </RelativeLayout>

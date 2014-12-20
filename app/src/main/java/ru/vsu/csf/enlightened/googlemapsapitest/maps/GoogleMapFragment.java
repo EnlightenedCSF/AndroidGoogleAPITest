@@ -58,17 +58,11 @@ public class GoogleMapFragment extends SupportMapFragment {
                     }
                     else {
                         Intent intent = new Intent(getActivity(), PlaceInfoActivity.class);
-                        /*intent.putExtra("place", new Place() {{
-                            setName("Test");
-                            setAddress("TestAddress");
-                            setOpen(true);
-                            setPriceLevel(2);
-                        }});*/
                         intent.putExtra("name", place.getName());
                         intent.putExtra("address", place.getAddress());
                         intent.putExtra("isOpen", place.isOpen());
                         intent.putExtra("priceLevel", place.getPriceLevel());
-
+                        intent.putExtra("iconURL", place.getIconUrl());
                         startActivity(intent);
                     }
                 }

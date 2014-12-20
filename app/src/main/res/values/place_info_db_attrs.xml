@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlaceInfoDBRecord">
+        <attr name="place_name_db" format="string" />
+        <attr name="place_icon_db" format="reference" />
+        <attr name="place_price_level_db" format="string" />
+        <attr name="place_address_db" format="string" />
+    </declare-styleable>
+</resources>

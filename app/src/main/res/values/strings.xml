@@ -9,5 +9,6 @@
     <string name="place_is_open_text">Открыто сейчас:</string>
     <string name="title_activity_place_info_activity">Информация о месте</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_favorites">FavoritesActivity</string>
 
 </resources>

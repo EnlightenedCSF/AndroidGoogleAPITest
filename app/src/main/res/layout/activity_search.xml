@@ -91,6 +91,18 @@
                     android:text="Поиск"
                     android:textSize="18sp"
                     android:layout_below="@id/radioGroupPlaceType"/>
+
+                <Button
+                    android:id="@+id/buttonShowFavorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:textSize="20sp"
+                    android:text="Избранное"
+                    android:layout_below="@id/radioGroupPlaceType"
+                    android:layout_toRightOf="@id/searchPlacesButton"
+                    />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.sql.SQLException;
+
+import ru.vsu.csf.enlightened.googlemapsapitest.places.db.MyDBHelper;
+
 
 public class SearchActivity extends ActionBarActivity {
 
@@ -61,6 +65,26 @@ public class SearchActivity extends ActionBarActivity {
                     intent.putExtra(PLACE_TYPE, placeTypeInt);
                     startActivity(intent);
                 }
+            }
+        });
+
+        try {
+            MyDBHelper.getInstance(this).getPlaceDAO();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        /*try {
+            MyDBHelper.getInstance(this).getPlaceDAO().clear();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+
+        Button showFavoritesButton = (Button) findViewById(R.id.buttonShowFavorites);
+        showFavoritesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, FavoritesActivity.class);
+                startActivity(intent);
             }
         });
     }

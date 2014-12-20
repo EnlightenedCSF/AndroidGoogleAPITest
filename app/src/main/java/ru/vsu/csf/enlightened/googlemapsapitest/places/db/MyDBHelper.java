@@ -14,7 +14,7 @@ import ru.vsu.csf.enlightened.googlemapsapitest.places.Place;
 
 public class MyDBHelper extends OrmLiteSqliteOpenHelper{
 
-    private static final String DATABASE_NAME = "places.db";
+    private static final String DATABASE_NAME = "places2.db";
     private static final int DATABASE_VERSION = 1;
 
     private PlaceDAO placeDAO;

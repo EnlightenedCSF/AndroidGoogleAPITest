@@ -33,8 +33,8 @@ import javax.net.ssl.HttpsURLConnection;
 import ru.vsu.csf.enlightened.googlemapsapitest.maps.GoogleMapFragment;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.Place;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.PlaceHolder;
-import ru.vsu.csf.enlightened.googlemapsapitest.places.parsing.PlaceParser;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.PlaceType;
+import ru.vsu.csf.enlightened.googlemapsapitest.places.parsing.PlaceParser;
 
 
 public class MapActivity extends FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -110,13 +110,13 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 
     @Override
     public void onConnected(Bundle bundle) {
-        Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
         SearchPlaces();
     }
 
     @Override
     public void onDisconnected() {
-        Toast.makeText(this, "Disconnected", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Disconnected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -222,7 +222,7 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
             try {
                 PlaceParser parser = new PlaceParser();
                 ArrayList<Place> places = parser.parse(result);
-                placeHolder.addPlaces(parser.parse(result));
+                placeHolder.addPlaces(places);
                 for (Place p : places) {
                     googleMapFragment.map.addMarker(new MarkerOptions()
                             .position(new LatLng(p.getLatitude(), p.getLongitude()))
