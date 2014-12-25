@@ -19,10 +19,6 @@ public class PlaceDAO extends BaseDaoImpl<Place, Integer>{
         return queryBuilder().query();
     }
 
-    /*public Place getPlaceByName(String name) throws SQLException{
-        return queryBuilder().where().eq(Place.PLACE_NAME, name).queryForFirst();
-    }*/
-
     public void clear() throws SQLException {
         TableUtils.clearTable(this.connectionSource, Place.class);
     }

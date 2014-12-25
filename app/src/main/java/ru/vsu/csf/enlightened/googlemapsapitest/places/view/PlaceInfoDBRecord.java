@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class PlaceInfoDBRecord extends RelativeLayout{
     private ImageView mIcon;
     private TextView mPriceLevel;
     private TextView mAddress;
+    private Button mDeleteRecordButton;
 
     public PlaceInfoDBRecord(Context context) {
         super(context);

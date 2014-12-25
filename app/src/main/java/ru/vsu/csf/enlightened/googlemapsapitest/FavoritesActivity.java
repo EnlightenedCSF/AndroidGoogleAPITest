@@ -1,5 +1,6 @@
 package ru.vsu.csf.enlightened.googlemapsapitest;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -43,13 +44,22 @@ public class FavoritesActivity extends ActionBarActivity {
             public void onClick(View v) {
                 try {
                     MyDBHelper.getInstance(getParent()).getPlaceDAO().clear();
-                    Toast.makeText(getParent(), "Cleared!", Toast.LENGTH_SHORT).show();
                     ((PlaceInfoDBRecordAdapter)listView.getAdapter()).clear();
                     listView.invalidate();
                     listView.requestLayout();
                 } catch (SQLException e) {
-                    Toast.makeText(getParent(), "Can't clear", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
+            }
+        });
+
+        Button showFavsOnMap = (Button) findViewById(R.id.buttonShowFavoritesOnMap);
+        showFavsOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FavoritesActivity.this, MapActivity.class);
+                //intent.putExtra("list", (java.io.Serializable) ((PlaceInfoDBRecordAdapter) listView.getAdapter()).getItems());
+                startActivity(intent);
             }
         });
     }

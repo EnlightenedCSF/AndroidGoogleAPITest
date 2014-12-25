@@ -25,6 +25,7 @@ import org.json.JSONException;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,6 +35,7 @@ import ru.vsu.csf.enlightened.googlemapsapitest.maps.GoogleMapFragment;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.Place;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.PlaceHolder;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.PlaceType;
+import ru.vsu.csf.enlightened.googlemapsapitest.places.db.MyDBHelper;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.parsing.PlaceParser;
 
 
@@ -47,6 +49,7 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
     private GoogleMapFragment googleMapFragment;
     private LocationClient locationClient;
     private PlaceHolder placeHolder;
+    private boolean searchPlaces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +63,12 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
         if (b != null) {
+            searchPlaces = true;
             placeName = b.getString(SearchActivity.PLACE_NAME);
             placeType = PlaceType.values()[b.getInt(SearchActivity.PLACE_TYPE)];
             Toast.makeText(MapActivity.this, placeName + " " + b.getInt(SearchActivity.PLACE_TYPE) + " " + placeType.getValue(), Toast.LENGTH_SHORT).show();
         }
-
-        //SearchPlaces();
+        //searchPlaces();
     }
 
     //region Map stuff
@@ -96,12 +99,13 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
 
     Connection connector;
 
-    public void SearchPlaces() {
+    public void searchPlaces() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
         if (info != null && info.isConnected()){
             connector = new Connection();
             connector.execute();
+            searchPlaces = false;
         }
         else {
             Toast.makeText(MapActivity.this, "Is not connected!", Toast.LENGTH_SHORT).show();
@@ -111,7 +115,32 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
     @Override
     public void onConnected(Bundle bundle) {
         //Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
-        SearchPlaces();
+        if (searchPlaces)
+            searchPlaces();
+        else
+            showDataBaseData();
+    }
+
+    private void showDataBaseData() {
+        placeHolder.clearPlaces();
+
+        ArrayList<Place> data = null;
+        try {
+            data = new ArrayList<Place>(MyDBHelper.getInstance(this).getPlaceDAO().getAllPlaces());
+            Toast.makeText(this, data.size()+"", Toast.LENGTH_SHORT).show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        placeHolder.addPlaces(data);
+        assert data != null;
+        for (Place p : data) {
+            googleMapFragment.map.addMarker(new MarkerOptions()
+                            .position(new LatLng(p.getLatitude(), p.getLongitude()))
+                            .title(p.getName())
+                            .snippet(p.getAddress())
+            );
+        }
     }
 
     @Override
@@ -180,6 +209,8 @@ public class MapActivity extends FragmentActivity implements GooglePlayServicesC
         protected String doInBackground(String... strings) {
 
             try {
+                //searchPlaces = false;
+
                 Location currentLocation = locationClient.getLastLocation();
 
                 URL url = new URL("https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +

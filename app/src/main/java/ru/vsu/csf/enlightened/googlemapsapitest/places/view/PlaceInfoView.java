@@ -59,15 +59,14 @@ public class PlaceInfoView extends LinearLayout {
             mIsOpen = (TextView) findViewById(R.id.place_is_open);
             mPriceLevel = (TextView) findViewById(R.id.place_price_level);
             mAddress = (TextView) findViewById(R.id.place_address);
-            Button mAddToFavorites = (Button) findViewById(R.id.buttonAddToFavorites);
+            final Button mAddToFavorites = (Button) findViewById(R.id.buttonAddToFavorites);
             mAddToFavorites.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
                         MyDBHelper dbHelper = MyDBHelper.getInstance(getContext());
                         dbHelper.getPlaceDAO().create(place);
-                        Toast.makeText(getContext(), "OK, added!", Toast.LENGTH_SHORT).show();
-                        System.out.println("OK, added");
+                        mAddToFavorites.setEnabled(false);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

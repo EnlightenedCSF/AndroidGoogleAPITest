@@ -34,4 +34,8 @@ public class PlaceHolder {
         }
         return null;
     }
+
+    public void clearPlaces() {
+        places.clear();
+    }
 }

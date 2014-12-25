@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ru.vsu.csf.enlightened.googlemapsapitest.R;
 import ru.vsu.csf.enlightened.googlemapsapitest.places.Place;
@@ -38,5 +39,9 @@ public class PlaceInfoDBRecordAdapter extends ArrayAdapter<PlaceInfoDBRecord>{
 
     public void clear() {
         places.clear();
+    }
+
+    public List<Place> getItems() {
+        return places;
     }
 }

@@ -25,6 +25,8 @@ public class PlaceInfoActivity extends ActionBarActivity {
 
             Place place = new Place() {{
                 setName(bundle.getString("name"));
+                setLatitude(bundle.getDouble("lat"));
+                setLongitude(bundle.getDouble("lon"));
                 setAddress(bundle.getString("address"));
                 setOpen(bundle.getBoolean("isOpen"));
                 setPriceLevel(bundle.getInt("priceLevel"));

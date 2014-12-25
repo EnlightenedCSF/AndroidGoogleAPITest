@@ -59,6 +59,8 @@ public class GoogleMapFragment extends SupportMapFragment {
                     else {
                         Intent intent = new Intent(getActivity(), PlaceInfoActivity.class);
                         intent.putExtra("name", place.getName());
+                        intent.putExtra("lat", place.getLatitude());
+                        intent.putExtra("lon", place.getLongitude());
                         intent.putExtra("address", place.getAddress());
                         intent.putExtra("isOpen", place.isOpen());
                         intent.putExtra("priceLevel", place.getPriceLevel());
